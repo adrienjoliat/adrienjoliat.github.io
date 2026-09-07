@@ -9,24 +9,120 @@ const description = 'Portfolio of Adrien Joliat — machine learning engineer an
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#050810" />
     <title>{title}</title>
   </head>
   <body>
-    <main>
-      <section class="foundation" aria-labelledby="page-title">
-        <p class="eyebrow">Portfolio / Foundation</p>
-        <h1 id="page-title">Adrien Joliat.</h1>
-        <h2>Machine Learning Engineer & Applied Researcher.</h2>
-        <p>
-          Building intelligent systems at the intersection of machine learning,
-          science, and engineering. The full portfolio is currently being built.
-        </p>
-        <div class="status">Phase 1 — infrastructure ready</div>
+    <canvas id="starfield" class="starfield" aria-hidden="true"></canvas>
+    <div class="space-glow space-glow--one" aria-hidden="true"></div>
+    <div class="space-glow space-glow--two" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Adrien Joliat home"><span class="brand-mark">AJ</span></a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#about"><span>01.</span> About</a>
+        <a href="#experience"><span>02.</span> Experience</a>
+        <a href="#research"><span>03.</span> Research</a>
+        <a href="#projects"><span>04.</span> Projects</a>
+        <a href="#contact"><span>05.</span> Contact</a>
+        <a class="nav-cta" href="#contact">CV</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation"><span></span><span></span></button>
+      <div id="mobile-menu" class="mobile-menu" hidden>
+        <a href="#about"><span>01.</span> About</a>
+        <a href="#experience"><span>02.</span> Experience</a>
+        <a href="#research"><span>03.</span> Research</a>
+        <a href="#projects"><span>04.</span> Projects</a>
+        <a href="#contact"><span>05.</span> Contact</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero shell" aria-labelledby="page-title">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Hello, my name is</p>
+          <h1 id="page-title">Adrien Joliat.</h1>
+          <h2>Machine Learning Engineer<br />& Applied Researcher.</h2>
+          <p class="hero-lede">I build intelligent systems at the intersection of machine learning, science, and engineering — from Earth observation and space geodesy to generative AI and autonomous agents.</p>
+          <div class="hero-actions">
+            <a class="button button--primary" href="#projects">Explore my work</a>
+            <a class="button button--ghost" href="#research">View research</a>
+          </div>
+          <div class="hero-tags" aria-label="Focus areas">
+            <span>Scientific ML</span><span>Computer Vision</span><span>Earth Observation</span><span>Generative AI</span><span>AI Agents</span>
+          </div>
+        </div>
+
+        <div class="orbit-stage reveal" aria-hidden="true">
+          <div class="orbit orbit--outer"></div><div class="orbit orbit--inner"></div>
+          <div class="planet"><div class="planet-grid"></div></div>
+          <div class="satellite satellite--one"><div class="satellite-core"></div><div class="satellite-panel satellite-panel--left"></div><div class="satellite-panel satellite-panel--right"></div></div>
+          <div class="signal signal--one"></div><div class="signal signal--two"></div>
+        </div>
+
+        <a class="scroll-cue" href="#about" aria-label="Scroll to about section"><span>Scroll</span><i></i></a>
       </section>
+
+      <section id="about" class="section shell placeholder-section reveal"><div class="section-heading"><span>01.</span><h3>About</h3></div><p>Professional story and technical profile will be added in Phase 3.</p></section>
+      <section id="experience" class="section shell placeholder-section reveal"><div class="section-heading"><span>02.</span><h3>Experience</h3></div><p>ESA, ETH Zürich and EPFL experience content will be added in Phase 4.</p></section>
+      <section id="research" class="section shell placeholder-section reveal"><div class="section-heading"><span>03.</span><h3>Research</h3></div><p>Research publications, thesis work and scientific visualizations will live here.</p></section>
+      <section id="projects" class="section shell placeholder-section reveal"><div class="section-heading"><span>04.</span><h3>Projects</h3></div><p>Selected engineering and AI projects will be implemented in the next content phase.</p></section>
+      <section id="contact" class="section shell placeholder-section reveal"><div class="section-heading"><span>05.</span><h3>Contact</h3></div><p>A concise contact section and professional links will be added later.</p></section>
     </main>
+
+    <script is:inline>
+      const menuToggle = document.querySelector('.menu-toggle');
+      const mobileMenu = document.querySelector('#mobile-menu');
+      menuToggle?.addEventListener('click', () => {
+        const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', String(!isOpen));
+        mobileMenu.hidden = isOpen;
+        document.body.classList.toggle('menu-open', !isOpen);
+      });
+      mobileMenu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+        mobileMenu.hidden = true;
+        menuToggle?.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
+      }));
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const revealItems = document.querySelectorAll('.reveal');
+      if (reducedMotion) revealItems.forEach((item) => item.classList.add('is-visible'));
+      else {
+        const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+          if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+        }), { threshold: 0.12 });
+        revealItems.forEach((item) => observer.observe(item));
+      }
+
+      const canvas = document.querySelector('#starfield');
+      const ctx = canvas?.getContext('2d');
+      if (canvas && ctx) {
+        let width = 0, height = 0, stars = [], mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+        const createStars = () => {
+          const count = Math.min(180, Math.max(90, Math.floor((width * height) / 11000)));
+          stars = Array.from({ length: count }, () => ({ x: Math.random()*width, y: Math.random()*height, r: Math.random()*1.25+.25, a: Math.random()*.65+.2, depth: Math.random()*.8+.2, twinkle: Math.random()*Math.PI*2 }));
+        };
+        const resize = () => {
+          const dpr = Math.min(window.devicePixelRatio || 1, 2); width = window.innerWidth; height = window.innerHeight;
+          canvas.width = width*dpr; canvas.height = height*dpr; canvas.style.width = `${width}px`; canvas.style.height = `${height}px`;
+          ctx.setTransform(dpr,0,0,dpr,0,0); createStars();
+        };
+        const draw = (time=0) => {
+          ctx.clearRect(0,0,width,height); targetX += (mouseX-targetX)*.025; targetY += (mouseY-targetY)*.025;
+          for (const star of stars) {
+            const twinkle = reducedMotion ? 1 : .72 + Math.sin(time*.0012 + star.twinkle)*.28;
+            const px = star.x + targetX*star.depth*10, py = star.y + targetY*star.depth*8;
+            ctx.beginPath(); ctx.arc(px,py,star.r,0,Math.PI*2); ctx.fillStyle = `rgba(220,235,255,${star.a*twinkle})`; ctx.fill();
+          }
+          if (!reducedMotion) requestAnimationFrame(draw);
+        };
+        window.addEventListener('mousemove', (event) => { mouseX=(event.clientX/width-.5)*-1; mouseY=(event.clientY/height-.5)*-1; }, { passive:true });
+        window.addEventListener('resize', resize, { passive:true }); resize(); draw();
+      }
+    </script>
   </body>
 </html>
