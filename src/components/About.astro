@@ -1,0 +1,124 @@
+---
+const skillGroups = [
+  { title: 'Machine Learning', items: ['PyTorch','Transformers','Computer Vision',
+    'Generative AI','Scikit-learn','Classical ML · SVM, XGBoost, Random Forests',
+    'Regression & Statistical Learning'] },
+  { title: 'Scientific Computing', items: ['Scientific ML', "Novel Mathematical Representations",'Earth Observation', 'Space Geodesy', 'Geospatial Data'] },
+  { title: 'Engineering', items: ['Python', 'Linux & HPC', 'Data Pipelines', 'AI Agents'] },
+];
+
+const milestones = [
+  { index: '01', place: 'EPFL', detail: 'MSc Computational Science & Engineering' },
+  { index: '02', place: 'ETH Zürich', detail: 'Space Geodesy Lab & AI in the Science and Engineering' },
+  { index: '03', place: 'ESA ESTEC', detail: 'Onboard AI · Earth Observation' },
+];
+---
+
+<section id="about" class="about section shell reveal" aria-labelledby="about-title">
+  <div class="section-heading">
+    <span>01.</span>
+    <h3 id="about-title">About</h3>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-copy">
+      <p>
+        I'm a <strong>computational scientist and engineer</strong> with a background in applied mathematics, mathematical modeling,
+        scientific computing and machine learning. I hold an MSc in Computational Science and Engineering from EPFL, with half of my master's studies completed at ETH Zürich.
+      </p>
+
+      <p>
+        My work has ranged from <strong>onboard AI for Earth-observation
+        satellites at ESA</strong> to scientific computer vision, hyperbolic
+        deep learning, generative sequence models and data analysis. I'm particularly drawn
+        to problems where machine learning interacts with physical data,
+        scientific structure, or robust engineering pipelines.
+      </p>
+
+      <p>
+        More recently, I've been exploring <strong>agentic AI systems</strong> and how foundation models can be integrated into reliable engineering
+        workflows while keeping an engineer in the loop.
+      </p>
+
+      <div class="skill-groups" aria-label="Technical areas">
+        {skillGroups.map((group) => (
+          <div class="skill-group">
+            <p class="skill-title">{group.title}</p>
+            <ul>
+              {group.items.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <aside class="profile-panel" aria-label="Academic and professional trajectory">
+      <div class="profile-visual" aria-hidden="true">
+        <div class="profile-ring profile-ring--outer"></div>
+        <div class="profile-ring profile-ring--middle"></div>
+        <div class="profile-core">
+          <span>ML</span>
+          <i></i>
+          <span>SCI</span>
+        </div>
+        <span class="profile-node profile-node--one"></span>
+        <span class="profile-node profile-node--two"></span>
+        <span class="profile-node profile-node--three"></span>
+      </div>
+
+      <div class="milestones">
+        {milestones.map((item) => (
+          <div class="milestone">
+            <span class="milestone-index">{item.index}</span>
+            <div>
+              <strong>{item.place}</strong>
+              <p>{item.detail}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="profile-focus">
+        <span>Current focus</span>
+        <p>Applied ML systems · Scientific AI · Agentic workflows</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .about { min-height: 100vh; padding-top: 9rem; padding-bottom: 8rem; scroll-margin-top: var(--nav-height); }
+  .about-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); gap: clamp(3rem, 7vw, 7rem); align-items: start; margin-top: 3.25rem; }
+  .about-copy { max-width: 720px; }
+  .about-copy > p { margin: 0 0 1.35rem; color: var(--text-soft); font-size: clamp(1rem, 1.25vw, 1.08rem); line-height: 1.8; }
+  .about-copy strong { color: #dce6f3; font-weight: 620; }
+  .skill-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.5rem; }
+  .skill-group { padding: 1.15rem 1rem; border: 1px solid rgba(114,183,255,.10); border-radius: 8px; background: linear-gradient(145deg, rgba(10,24,47,.42), rgba(7,16,29,.20)); }
+  .skill-title { margin: 0 0 .85rem; color: var(--accent); font-family: "SFMono-Regular", Consolas, monospace; font-size: .7rem; letter-spacing: .04em; }
+  .skill-group ul { display: grid; gap: .58rem; margin: 0; padding: 0; list-style: none; }
+  .skill-group li { position: relative; padding-left: .9rem; color: #8796ac; font-family: "SFMono-Regular", Consolas, monospace; font-size: .72rem; line-height: 1.45; }
+  .skill-group li::before { content: "›"; position: absolute; left: 0; color: var(--accent); }
+  .profile-panel { position: relative; padding: 1.35rem; border: 1px solid rgba(114,183,255,.12); border-radius: 10px; background: radial-gradient(circle at 50% 0%, rgba(65,141,209,.10), transparent 45%), rgba(7,16,29,.38); backdrop-filter: blur(12px); }
+  .profile-panel::before { content: ""; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; background: linear-gradient(135deg, rgba(100,255,218,.15), transparent 28%, transparent 72%, rgba(114,183,255,.12)); opacity: .55; }
+  .profile-visual { position: relative; width: min(78%, 230px); aspect-ratio: 1; margin: .5rem auto 1.8rem; }
+  .profile-ring { position: absolute; inset: 50% auto auto 50%; border-radius: 50%; transform: translate(-50%, -50%); }
+  .profile-ring--outer { width: 100%; height: 58%; border: 1px solid rgba(114,183,255,.18); transform: translate(-50%, -50%) rotate(-22deg); }
+  .profile-ring--middle { width: 72%; height: 72%; border: 1px solid rgba(100,255,218,.11); }
+  .profile-core { position: absolute; left: 50%; top: 50%; display: flex; align-items: center; justify-content: center; gap: .45rem; width: 42%; aspect-ratio: 1; transform: translate(-50%, -50%); border: 1px solid rgba(114,183,255,.28); border-radius: 50%; background: radial-gradient(circle at 40% 35%, rgba(114,183,255,.16), transparent 30%), rgba(7,16,29,.76); box-shadow: 0 0 35px rgba(65,141,209,.10); color: #a9b9cf; font-family: "SFMono-Regular", Consolas, monospace; font-size: .6rem; letter-spacing: .08em; }
+  .profile-core i { display: block; width: 1px; height: 18px; background: rgba(100,255,218,.35); }
+  .profile-node { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px rgba(100,255,218,.6); }
+  .profile-node--one { left: 7%; top: 39%; }
+  .profile-node--two { right: 15%; top: 23%; background: var(--accent-blue); }
+  .profile-node--three { right: 8%; bottom: 27%; width: 4px; height: 4px; }
+  .milestones { display: grid; gap: .15rem; border-top: 1px solid rgba(148,163,184,.10); }
+  .milestone { display: grid; grid-template-columns: 2rem 1fr; gap: .7rem; padding: .9rem 0; border-bottom: 1px solid rgba(148,163,184,.08); }
+  .milestone-index { padding-top: .1rem; color: var(--accent); font-family: "SFMono-Regular", Consolas, monospace; font-size: .64rem; }
+  .milestone strong { display: block; color: #cbd7e6; font-size: .86rem; font-weight: 610; }
+  .milestone p { margin: .25rem 0 0; color: #718099; font-size: .72rem; line-height: 1.5; }
+  .profile-focus { margin-top: 1.2rem; padding: .85rem .9rem; border-left: 1px solid rgba(100,255,218,.45); background: rgba(100,255,218,.025); }
+  .profile-focus span { color: var(--accent); font-family: "SFMono-Regular", Consolas, monospace; font-size: .62rem; text-transform: uppercase; letter-spacing: .08em; }
+  .profile-focus p { margin: .35rem 0 0; color: #8190a7; font-size: .72rem; line-height: 1.5; }
+  @media (max-width: 900px) { .about { min-height: auto; } .about-grid { grid-template-columns: 1fr; gap: 3rem; } .about-copy { max-width: none; } .profile-panel { width: min(100%, 520px); } }
+  @media (max-width: 650px) { .about { padding-top: 7rem; padding-bottom: 6rem; } .about-grid { margin-top: 2.4rem; } .skill-groups { grid-template-columns: 1fr; } .skill-group { display: grid; grid-template-columns: minmax(110px, .65fr) 1.35fr; gap: 1rem; } .skill-title { margin: .1rem 0 0; } .skill-group ul { grid-template-columns: repeat(2, 1fr); } .profile-visual { width: min(68%, 210px); } }
+  @media (max-width: 430px) { .skill-group { grid-template-columns: 1fr; } .skill-group ul { grid-template-columns: 1fr 1fr; } }
+</style>

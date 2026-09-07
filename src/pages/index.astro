@@ -1,9 +1,9 @@
 ---
 import '../styles/global.css';
-
-const title = 'Adrien Joliat | Machine Learning Engineer & Applied Researcher';
-const description = 'Portfolio of Adrien Joliat — machine learning engineer and applied researcher working across scientific machine learning, computer vision, Earth observation, generative AI, and intelligent systems.';
----
+import About from '../components/About.astro';
+import '../styles/global.css';
+const title = 'Adrien Joliat | Computational Scientist & Machine Learning Engineer';
+const description = 'Portfolio of Adrien Joliat — computational scientist and machine learning engineer working across scientific computing, mathematical modeling, scientific machine learning, computer vision, Earth observation, generative AI, and agentic systems.';---
 
 <!doctype html>
 <html lang="en">
@@ -42,20 +42,29 @@ const description = 'Portfolio of Adrien Joliat — machine learning engineer an
     </header>
 
     <main id="top">
-      <section class="hero shell" aria-labelledby="page-title">
-        <div class="hero-copy reveal">
-          <p class="eyebrow">Hello, my name is</p>
-          <h1 id="page-title">Adrien Joliat.</h1>
-          <h2>Machine Learning Engineer<br />& Applied Researcher.</h2>
-          <p class="hero-lede">I build intelligent systems at the intersection of machine learning, science, and engineering — from Earth observation and space geodesy to generative AI and autonomous agents.</p>
-          <div class="hero-actions">
-            <a class="button button--primary" href="#projects">Explore my work</a>
-            <a class="button button--ghost" href="#research">View research</a>
-          </div>
-          <div class="hero-tags" aria-label="Focus areas">
-            <span>Scientific ML</span><span>Computer Vision</span><span>Earth Observation</span><span>Generative AI</span><span>AI Agents</span>
-          </div>
+    <section class="hero shell" aria-labelledby="page-title">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Hello, my name is</p>
+        <h1 id="page-title">Adrien Joliat.</h1>
+        <h2>Computational Scientist<br />& Machine Learning Engineer.</h2>
+
+        <p class="hero-lede">
+          I build computational and machine learning systems at the intersection of mathematics, science, and engineering — from Earth observation and space geodesy to generative AI and agentic systems.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button button--primary" href="#projects">Explore my work</a>
+          <a class="button button--ghost" href="#research">View research</a>
         </div>
+
+        <div class="hero-tags" aria-label="Focus areas">
+          <span>Computational Science</span>
+          <span>Applied Mathematics</span>
+          <span>Scientific Computing</span>
+          <span>Machine Learning</span>
+          <span>Data & AI Systems</span>
+        </div>
+      </div>
 
         <div class="orbit-stage reveal" aria-hidden="true">
           <div class="orbit orbit--outer"></div><div class="orbit orbit--inner"></div>
@@ -67,7 +76,7 @@ const description = 'Portfolio of Adrien Joliat — machine learning engineer an
         <a class="scroll-cue" href="#about" aria-label="Scroll to about section"><span>Scroll</span><i></i></a>
       </section>
 
-      <section id="about" class="section shell placeholder-section reveal"><div class="section-heading"><span>01.</span><h3>About</h3></div><p>Professional story and technical profile will be added in Phase 3.</p></section>
+      <About />
       <section id="experience" class="section shell placeholder-section reveal"><div class="section-heading"><span>02.</span><h3>Experience</h3></div><p>ESA, ETH Zürich and EPFL experience content will be added in Phase 4.</p></section>
       <section id="research" class="section shell placeholder-section reveal"><div class="section-heading"><span>03.</span><h3>Research</h3></div><p>Research publications, thesis work and scientific visualizations will live here.</p></section>
       <section id="projects" class="section shell placeholder-section reveal"><div class="section-heading"><span>04.</span><h3>Projects</h3></div><p>Selected engineering and AI projects will be implemented in the next content phase.</p></section>
