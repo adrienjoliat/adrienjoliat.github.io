@@ -17,6 +17,7 @@ const description = 'Portfolio of Adrien Joliat — machine learning engineer an
   </head>
   <body>
     <canvas id="starfield" class="starfield" aria-hidden="true"></canvas>
+    <div class="cursor-glow" aria-hidden="true"></div>
     <div class="space-glow space-glow--one" aria-hidden="true"></div>
     <div class="space-glow space-glow--two" aria-hidden="true"></div>
 
@@ -89,6 +90,27 @@ const description = 'Portfolio of Adrien Joliat — machine learning engineer an
       }));
 
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const cursorGlow = document.querySelector('.cursor-glow');
+
+      if (cursorGlow && !reducedMotion && !window.matchMedia('(pointer: coarse)').matches) {
+        window.addEventListener(
+          'mousemove',
+          (event) => {
+            cursorGlow.style.left = `${event.clientX}px`;
+            cursorGlow.style.top = `${event.clientY}px`;
+            cursorGlow.classList.add('is-active');
+          },
+          { passive: true }
+        );
+
+        window.addEventListener('mouseleave', () => {
+          cursorGlow.classList.remove('is-active');
+        });
+
+        window.addEventListener('mouseenter', () => {
+          cursorGlow.classList.add('is-active');
+        });
+      }
       const revealItems = document.querySelectorAll('.reveal');
       if (reducedMotion) revealItems.forEach((item) => item.classList.add('is-visible'));
       else {
