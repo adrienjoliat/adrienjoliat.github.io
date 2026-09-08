@@ -1,16 +1,15 @@
 ---
-const researchProjects = [
+const ongoingResearch = [
   {
     index: '01',
     type: 'MSc Thesis · ETH Zürich',
     title: 'Enhancing monthly gravity-field solutions with generative deep learning',
     subtitle: 'Space Geodesy Lab',
     description:
-      'Developed an end-to-end deep-learning pipeline to enhance low-degree satellite laser-ranging gravity solutions toward GRACE-like monthly fields. The work combined scientific preprocessing, custom sequence representations, Transformer/GRU architectures, autoregressive modelling, validation-based checkpointing, and multi-domain evaluation.',
-    outcome: '28.4% lower error than previous methods',
+      'Developing an end-to-end deep-learning pipeline to enhance low-degree satellite laser-ranging gravity solutions toward GRACE-like monthly fields. The work combines scientific preprocessing, custom sequence representations, Transformer/GRU architectures, autoregressive modelling, validation-based checkpointing, and multi-domain evaluation.',
+    outcome: 'Ongoing research project',
     tags: ['Transformers', 'GRU', 'Generative Models', 'Scientific ML', 'Space Geodesy'],
-    visual: 'GRAV',
-    featured: true,
+    availability: 'Ongoing — PDF not yet available',
   },
   {
     index: '02',
@@ -21,9 +20,11 @@ const researchProjects = [
       'Research on intelligent onboard screening for the Copernicus CHIME mission. Built the CHIME-MDset proxy dataset, developed hyperspectral feature-selection workflows and compact linear-SVM models, and evaluated the approach in mission-like conditions.',
     outcome: 'Accepted at IEEE IGARSS 2026 · Washington, D.C.',
     tags: ['Hyperspectral EO', 'SVM', 'Feature Selection', 'Onboard AI', 'Remote Sensing'],
-    visual: 'CHIME',
-    featured: true,
+    availability: 'Accepted — paper not yet available',
   },
+];
+
+const researchProjects = [
   {
     index: '03',
     type: 'Research project · ECEO',
@@ -33,8 +34,10 @@ const researchProjects = [
       'Developed a deep-learning semantic-segmentation approach for airborne imagery using hyperbolic representations to encode hierarchical class structure and investigate alternatives to standard Euclidean feature spaces.',
     outcome: 'Hierarchical representation learning for Earth observation',
     tags: ['Hyperbolic Geometry', 'Semantic Segmentation', 'PyTorch', 'Earth Observation'],
-    visual: 'HYP',
-    featured: false,
+    preview: '/research/hyperbolic-preview.png',
+    previewAlt: 'Preview of hyperbolic remote sensing research',
+    pdf: '/research/hyperbolic-report.pdf',
+    pdfLabel: 'Research Report',
   },
   {
     index: '04',
@@ -45,8 +48,10 @@ const researchProjects = [
       'Applied deep-learning-based image and video object detection to solar observations for identifying coronal jets, combining computer vision with a scientific space-weather application.',
     outcome: 'Scientific computer vision for solar observations',
     tags: ['Computer Vision', 'Object Detection', 'Video', 'Solar Physics'],
-    visual: 'SOL',
-    featured: false,
+    preview: '/research/coronal-preview.png',
+    previewAlt: 'Preview of coronal jet identification research',
+    publicationUrl: 'https://infoscience.epfl.ch/entities/publication/0930ea7d-e8f4-4dec-98a6-f8656bcc66df/studentdetails',
+    publicationLabel: 'EPFL Infoscience',
   },
 ];
 ---
@@ -57,22 +62,20 @@ const researchProjects = [
     <h3 id="research-title">Research</h3>
   </div>
 
-  <div class="research-intro">
-    <p>
-      Selected work across scientific machine learning, Earth observation,
-      space geodesy, computer vision, and novel mathematical representations.
-    </p>
-  </div>
 
-  <div class="research-grid">
-    {researchProjects.map((project) => (
-      <article class:list={['research-card', project.featured && 'research-card--featured']}>
-        <div class="research-topline">
-          <span>{project.index}</span>
-          <p>{project.type}</p>
-        </div>
+  <div class="research-block">
+    <div class="research-subheading">
+      <span>Publications & Ongoing Work</span>
+    </div>
 
-        <div class="research-content">
+    <div class="research-grid research-grid--ongoing">
+      {ongoingResearch.map((project) => (
+        <article class="research-card research-card--ongoing">
+          <div class="research-topline">
+            <span>{project.index}</span>
+            <p>{project.type}</p>
+          </div>
+
           <div class="research-copy">
             <p class="research-subtitle">{project.subtitle}</p>
             <h4>{project.title}</h4>
@@ -83,58 +86,365 @@ const researchProjects = [
               <span>{project.outcome}</span>
             </div>
 
+            <div class="research-actions">
+              <span class="research-link research-link--disabled">{project.availability}</span>
+            </div>
+
             <div class="research-tags">
               {project.tags.map((tag) => <span>{tag}</span>)}
             </div>
           </div>
+        </article>
+      ))}
+    </div>
+  </div>
 
-          <div class="research-visual" aria-hidden="true">
-            <div class="visual-orbit visual-orbit--one"></div>
-            <div class="visual-orbit visual-orbit--two"></div>
-            <div class="visual-core">{project.visual}</div>
-            <span class="visual-node visual-node--one"></span>
-            <span class="visual-node visual-node--two"></span>
-            <span class="visual-node visual-node--three"></span>
+  <div class="research-block">
+    <div class="research-subheading">
+      <span>Selected Research Projects</span>
+    </div>
+
+    <div class="research-grid research-grid--projects">
+      {researchProjects.map((project) => (
+        <article class="research-card research-card--project">
+          <div class="research-topline">
+            <span>{project.index}</span>
+            <p>{project.type}</p>
           </div>
-        </div>
-      </article>
-    ))}
+
+          <div class="project-layout">
+            <div class="research-copy">
+              <p class="research-subtitle">{project.subtitle}</p>
+              <h4>{project.title}</h4>
+              <p class="research-description">{project.description}</p>
+
+              <div class="research-outcome">
+                <i aria-hidden="true"></i>
+                <span>{project.outcome}</span>
+              </div>
+
+              <div class="research-actions">
+                {project.pdf ? (
+                  <a
+                    class="research-link"
+                    href={project.pdf}
+                    download
+                    aria-label={`Download ${project.pdfLabel}: ${project.title}`}
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true" width="15" height="15">
+                      <path
+                        d="M12 3v12m0 0 4-4m-4 4-4-4M5 19h14"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+
+                    <span>{project.pdfLabel}</span>
+                    <span class="research-link-type">PDF</span>
+                  </a>
+                ) : project.publicationUrl ? (
+                  <a
+                    class="research-link"
+                    href={project.publicationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Open ${project.title} on ${project.publicationLabel}`}
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true" width="15" height="15">
+                      <path
+                        d="M14 5h5v5M10 14 19 5M19 14v5H5V5h5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+
+                    <span>{project.publicationLabel}</span>
+                    <span class="research-link-type">LINK</span>
+                  </a>
+                ) : (
+                  <span class="research-link research-link--disabled">
+                    Report unavailable
+                  </span>
+                )}
+              </div>
+
+              <div class="research-tags">
+                {project.tags.map((tag) => <span>{tag}</span>)}
+              </div>
+            </div>
+
+            <div class="research-preview">
+              <img src={project.preview} alt={project.previewAlt} loading="lazy" />
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
   </div>
 </section>
 
 <style>
-  .research { min-height: 100vh; padding-top: 9rem; padding-bottom: 8rem; scroll-margin-top: var(--nav-height); }
-  .research-intro { max-width: 700px; margin-top: 1.4rem; }
-  .research-intro p { margin: 0; color: #718099; font-size: .95rem; line-height: 1.7; }
-  .research-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 3.5rem; }
-  .research-card { position: relative; overflow: hidden; min-height: 390px; padding: 1.45rem; border: 1px solid rgba(114,183,255,.10); border-radius: 10px; background: radial-gradient(circle at 85% 20%, rgba(65,141,209,.08), transparent 28%), linear-gradient(145deg, rgba(10,24,47,.48), rgba(7,16,29,.28)); transition: transform .25s ease, border-color .25s ease; }
-  .research-card--featured { grid-column: span 2; min-height: 350px; }
-  .research-card:hover { transform: translateY(-3px); border-color: rgba(114,183,255,.20); }
-  .research-card::after { content: ""; position: absolute; right: -80px; bottom: -110px; width: 260px; height: 260px; border: 1px solid rgba(100,255,218,.04); border-radius: 50%; }
-  .research-topline { position: relative; z-index: 2; display: flex; align-items: center; gap: .7rem; padding-bottom: .9rem; border-bottom: 1px solid rgba(148,163,184,.08); }
-  .research-topline > span { color: var(--accent); font-family: "SFMono-Regular", Consolas, monospace; font-size: .64rem; }
-  .research-topline p { margin: 0; color: #62758d; font-family: "SFMono-Regular", Consolas, monospace; font-size: .62rem; letter-spacing: .02em; }
-  .research-content { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1fr) 150px; gap: 1.8rem; align-items: center; height: calc(100% - 2.1rem); padding-top: 1.3rem; }
-  .research-card:not(.research-card--featured) .research-content { grid-template-columns: 1fr; }
-  .research-card:not(.research-card--featured) .research-visual { position: absolute; right: -28px; bottom: -35px; width: 125px; opacity: .28; }
-  .research-copy { max-width: 780px; }
-  .research-subtitle { margin: 0 0 .6rem; color: var(--accent); font-family: "SFMono-Regular", Consolas, monospace; font-size: .68rem; }
-  .research-card h4 { max-width: 760px; margin: 0; color: #dbe6f3; font-size: clamp(1.2rem, 2.4vw, 1.75rem); line-height: 1.24; letter-spacing: -.035em; font-weight: 650; }
-  .research-card:not(.research-card--featured) h4 { font-size: clamp(1.15rem, 2vw, 1.38rem); }
-  .research-description { max-width: 760px; margin: 1rem 0 0; color: #8795aa; font-size: .85rem; line-height: 1.7; }
-  .research-outcome { display: flex; align-items: center; gap: .6rem; margin-top: 1.15rem; color: #9cabc0; font-size: .74rem; }
-  .research-outcome i { display: block; width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(100,255,218,.45); }
-  .research-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.3rem; }
-  .research-tags span { padding: .38rem .52rem; border: 1px solid rgba(114,183,255,.09); border-radius: 999px; color: #6f8198; font-family: "SFMono-Regular", Consolas, monospace; font-size: .58rem; }
-  .research-visual { position: relative; width: 145px; aspect-ratio: 1; justify-self: end; }
-  .visual-orbit { position: absolute; left: 50%; top: 50%; border-radius: 50%; transform: translate(-50%, -50%); }
-  .visual-orbit--one { width: 100%; height: 55%; border: 1px solid rgba(114,183,255,.16); transform: translate(-50%, -50%) rotate(-20deg); }
-  .visual-orbit--two { width: 72%; height: 72%; border: 1px solid rgba(100,255,218,.09); }
-  .visual-core { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 42%; aspect-ratio: 1; transform: translate(-50%, -50%); border: 1px solid rgba(114,183,255,.24); border-radius: 50%; background: rgba(7,16,29,.68); color: #7188a3; font-family: "SFMono-Regular", Consolas, monospace; font-size: .58rem; letter-spacing: .08em; box-shadow: 0 0 30px rgba(65,141,209,.08); }
-  .visual-node { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(100,255,218,.5); }
-  .visual-node--one { left: 4%; top: 39%; }
-  .visual-node--two { right: 13%; top: 25%; background: var(--accent-blue); }
-  .visual-node--three { right: 9%; bottom: 27%; width: 3px; height: 3px; }
-  @media (max-width: 850px) { .research-card--featured { grid-column: auto; min-height: 390px; } .research-content, .research-card--featured .research-content { grid-template-columns: 1fr; } .research-visual, .research-card--featured .research-visual { position: absolute; right: -22px; bottom: -32px; width: 130px; opacity: .28; } }
-  @media (max-width: 700px) { .research { min-height: auto; padding-top: 7rem; padding-bottom: 6rem; } .research-grid { grid-template-columns: 1fr; margin-top: 2.8rem; } .research-card { min-height: 0; padding: 1.3rem 1.2rem; } .research-card--featured { min-height: 0; } .research-content { padding-bottom: .5rem; } }
+  .research {
+    min-height: 100vh;
+    padding-top: 9rem;
+    padding-bottom: 8rem;
+    scroll-margin-top: var(--nav-height);
+  }
+
+  .research-intro {
+    max-width: 700px;
+    margin-top: 1.4rem;
+  }
+
+  .research-intro p {
+    margin: 0;
+    color: #718099;
+    font-size: .95rem;
+    line-height: 1.7;
+  }
+
+  .research-block {
+    margin-top: 3.25rem;
+  }
+
+  .research-subheading {
+    margin-bottom: 1rem;
+  }
+
+  .research-subheading span {
+    color: var(--accent);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: .72rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .research-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .research-grid--ongoing {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .research-grid--projects {
+    grid-template-columns: 1fr;
+  }
+
+  .research-card {
+    position: relative;
+    overflow: hidden;
+    padding: 1.45rem;
+    border: 1px solid rgba(114,183,255,.10);
+    border-radius: 10px;
+    background:
+      radial-gradient(circle at 85% 20%, rgba(65,141,209,.08), transparent 28%),
+      linear-gradient(145deg, rgba(10,24,47,.48), rgba(7,16,29,.28));
+    transition: transform .25s ease, border-color .25s ease;
+  }
+
+  .research-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(114,183,255,.20);
+  }
+  .research-link {
+  text-decoration: none;
+  }
+
+  .research-link-type {
+    margin-left: .15rem;
+    padding-left: .55rem;
+    border-left: 1px solid rgba(148,163,184,.15);
+    color: #52677f;
+    font-size: .55rem;
+    letter-spacing: .08em;
+  }
+  .research-topline {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    padding-bottom: .9rem;
+    border-bottom: 1px solid rgba(148,163,184,.08);
+  }
+
+  .research-topline > span {
+    color: var(--accent);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: .64rem;
+  }
+
+  .research-topline p {
+    margin: 0;
+    color: #62758d;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: .62rem;
+    letter-spacing: .02em;
+  }
+
+  .research-copy {
+    padding-top: 1.2rem;
+  }
+
+  .research-subtitle {
+    margin: 0 0 .6rem;
+    color: var(--accent);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: .68rem;
+  }
+
+  .research-card h4 {
+    margin: 0;
+    color: #dbe6f3;
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
+    line-height: 1.24;
+    letter-spacing: -.035em;
+    font-weight: 650;
+  }
+
+  .research-description {
+    margin: 1rem 0 0;
+    color: #8795aa;
+    font-size: .85rem;
+    line-height: 1.7;
+  }
+
+  .research-outcome {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    margin-top: 1.1rem;
+    color: #9cabc0;
+    font-size: .74rem;
+  }
+
+  .research-outcome i {
+    display: block;
+    width: 6px;
+    height: 6px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px rgba(100,255,218,.45);
+  }
+
+  .research-actions {
+    margin-top: 1.15rem;
+  }
+
+  .research-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .62rem .82rem;
+    border: 1px solid rgba(100,255,218,.22);
+    border-radius: 6px;
+    background: rgba(100,255,218,.03);
+    color: #a7b8cd;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: .64rem;
+    transition: color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease;
+  }
+
+  .research-link:hover {
+    color: var(--accent);
+    border-color: rgba(100,255,218,.42);
+    background: rgba(100,255,218,.06);
+    transform: translateY(-2px);
+  }
+
+  .research-link--disabled {
+    cursor: default;
+    color: #73839a;
+    border-color: rgba(148,163,184,.12);
+    background: rgba(148,163,184,.04);
+  }
+
+  .research-link--disabled:hover {
+    color: #73839a;
+    border-color: rgba(148,163,184,.12);
+    background: rgba(148,163,184,.04);
+    transform: none;
+  }
+
+  .research-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin-top: 1.2rem;
+  }
+
+  .research-tags span {
+    padding: .38rem .52rem;
+    border: 1px solid rgba(114,183,255,.09);
+    border-radius: 999px;
+    color: #6f8198;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: .58rem;
+  }
+
+  .project-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .research-preview {
+    justify-self: end;
+    width: 220px;
+    height: 150px;
+    overflow: hidden;
+    border: 1px solid rgba(114,183,255,.12);
+    border-radius: 8px;
+    background: rgba(7,16,29,.55);
+    box-shadow: 0 10px 35px rgba(0,0,0,.18);
+  }
+
+  .research-preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 900px) {
+    .research-grid--ongoing {
+      grid-template-columns: 1fr;
+    }
+
+    .project-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .research-preview {
+      justify-self: start;
+      width: min(100%, 320px);
+      height: auto;
+      aspect-ratio: 4 / 3;
+      margin-top: .5rem;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .research {
+      min-height: auto;
+      padding-top: 7rem;
+      padding-bottom: 6rem;
+    }
+
+    .research-block {
+      margin-top: 2.6rem;
+    }
+
+    .research-card {
+      padding: 1.3rem 1.2rem;
+    }
+  }
 </style>
