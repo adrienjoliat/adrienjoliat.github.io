@@ -202,7 +202,7 @@ const projects = [
 
   .project-card {
     display: grid;
-    grid-template-columns: minmax(0, 1.08fr) minmax(300px, .92fr);
+    grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
     gap: clamp(2.5rem, 6vw, 5rem);
     align-items: center;
   }
@@ -260,7 +260,7 @@ const projects = [
 
   .browser-bar {
     display: grid;
-    grid-template-columns: 60px 1fr 60px;
+    grid-template-columns: 60px minmax(0, 1fr) 60px;
     align-items: center;
     min-height: 34px;
     padding: 0 .8rem;
@@ -307,9 +307,6 @@ const projects = [
     filter .3s ease;
 }
 
-  .project-card {
-  grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
-}
   .project-card:hover .project-image img {
   transform: none;
 }
@@ -342,6 +339,8 @@ const projects = [
   }
 
   .project-copy {
+    min-width: 0;
+    overflow-wrap: anywhere;
     position: relative;
   }
 
@@ -486,7 +485,7 @@ const projects = [
 
   @media (max-width: 480px) {
     .browser-bar {
-      grid-template-columns: 45px 1fr 45px;
+      grid-template-columns: 45px minmax(0, 1fr) 45px;
     }
 
     .project-actions {

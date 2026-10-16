@@ -89,11 +89,11 @@ const milestones = [
 <style>
   .about { min-height: 100vh; padding-top: 9rem; padding-bottom: 8rem; scroll-margin-top: var(--nav-height); }
   .about-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); gap: clamp(3rem, 7vw, 7rem); align-items: start; margin-top: 3.25rem; }
-  .about-copy { max-width: 720px; }
+  .about-copy { min-width: 0; max-width: 720px; }
   .about-copy > p { margin: 0 0 1.35rem; color: var(--text-soft); font-size: clamp(1rem, 1.25vw, 1.08rem); line-height: 1.8; }
   .about-copy strong { color: #dce6f3; font-weight: 620; }
-  .skill-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.5rem; }
-  .skill-group { padding: 1.15rem 1rem; border: 1px solid rgba(114,183,255,.10); border-radius: 8px; background: linear-gradient(145deg, rgba(10,24,47,.42), rgba(7,16,29,.20)); }
+  .skill-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 1rem; margin-top: 2.5rem; }
+  .skill-group { min-width: 0; overflow-wrap: anywhere; padding: 1.15rem 1rem; border: 1px solid rgba(114,183,255,.10); border-radius: 8px; background: linear-gradient(145deg, rgba(10,24,47,.42), rgba(7,16,29,.20)); }
   .skill-title { margin: 0 0 .85rem; color: var(--accent); font-family: "SFMono-Regular", Consolas, monospace; font-size: .7rem; letter-spacing: .04em; }
   .skill-group ul { display: grid; gap: .58rem; margin: 0; padding: 0; list-style: none; }
   .skill-group li { position: relative; padding-left: .9rem; color: #8796ac; font-family: "SFMono-Regular", Consolas, monospace; font-size: .72rem; line-height: 1.45; }
@@ -119,6 +119,5 @@ const milestones = [
   .profile-focus span { color: var(--accent); font-family: "SFMono-Regular", Consolas, monospace; font-size: .62rem; text-transform: uppercase; letter-spacing: .08em; }
   .profile-focus p { margin: .35rem 0 0; color: #8190a7; font-size: .72rem; line-height: 1.5; }
   @media (max-width: 900px) { .about { min-height: auto; } .about-grid { grid-template-columns: 1fr; gap: 3rem; } .about-copy { max-width: none; } .profile-panel { width: min(100%, 520px); } }
-  @media (max-width: 650px) { .about { padding-top: 7rem; padding-bottom: 6rem; } .about-grid { margin-top: 2.4rem; } .skill-groups { grid-template-columns: 1fr; } .skill-group { display: grid; grid-template-columns: minmax(110px, .65fr) 1.35fr; gap: 1rem; } .skill-title { margin: .1rem 0 0; } .skill-group ul { grid-template-columns: repeat(2, 1fr); } .profile-visual { width: min(68%, 210px); } }
-  @media (max-width: 430px) { .skill-group { grid-template-columns: 1fr; } .skill-group ul { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 650px) { .about { padding-top: 7rem; padding-bottom: 6rem; } .about-grid { margin-top: 2.4rem; } .profile-visual { width: min(68%, 210px); } }
 </style>

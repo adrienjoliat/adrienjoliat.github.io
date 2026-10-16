@@ -69,12 +69,12 @@ const experiences = [
   </div>
 
   <div class="timeline">
-    {experiences.map((item, index) => (
+    {experiences.map((item) => (
       <article class="experience-row">
         <div class="timeline-meta">
-          <span class="timeline-number">{String(index + 1).padStart(2, '0')}</span>
           <p>{item.period}</p>
         </div>
+        <span class="timeline-marker" aria-hidden="true"></span>
 
         <div class="experience-card">
           <div class="experience-card-header">
@@ -107,14 +107,80 @@ const experiences = [
   .experience { min-height: 100vh; padding-top: 9rem; padding-bottom: 8rem; scroll-margin-top: var(--nav-height); }
   .experience-intro { max-width: 650px; margin-top: 1.4rem; }
   .experience-intro p { margin: 0; color: #718099; font-size: .95rem; line-height: 1.7; }
-  .timeline { position: relative; display: grid; gap: 1.4rem; max-width: 980px; margin-top: 3.5rem; }
-  .timeline::before { content: ""; position: absolute; left: 91px; top: 2rem; bottom: 2rem; width: 1px; background: linear-gradient(to bottom, rgba(100,255,218,.32), rgba(114,183,255,.14), transparent); }
-  .experience-row { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 1.8rem; }
-  .timeline-meta { position: relative; padding-top: 1.2rem; text-align: right; }
-  .timeline-number { position: absolute; right: 20px; top: 1.55rem; z-index: 2; display: grid; place-items: center; width: 18px; height: 18px; transform: translateX(50%); border: 1px solid rgba(100,255,218,.55); border-radius: 50%; background: #06101c; color: transparent; }
-  .timeline-number::after { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px rgba(100,255,218,.65); }
-  .timeline-meta p { margin: 1.8rem 1.2rem 0 0; color: #697990; font-family: "SFMono-Regular", Consolas, monospace; font-size: .64rem; line-height: 1.5; }
-  .experience-card { position: relative; overflow: hidden; padding: 1.55rem 1.65rem; border: 1px solid rgba(114,183,255,.10); border-radius: 10px; background: linear-gradient(135deg, rgba(10,24,47,.48), rgba(7,16,29,.28)); transition: transform .25s ease, border-color .25s ease, background .25s ease; }
+  .timeline {
+    --date-width: 8.5rem;
+    --marker-size: 18px;
+    --marker-offset: 1.55rem;
+    --column-gap: 1.25rem;
+    --row-gap: 1.4rem;
+    --rail-x: calc(var(--date-width) + var(--column-gap) + var(--marker-size) / 2);
+    display: grid;
+    gap: var(--row-gap);
+    max-width: 980px;
+    margin-top: 3.5rem;
+  }
+
+  .experience-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--date-width) var(--marker-size) minmax(0, 1fr);
+    column-gap: var(--column-gap);
+    align-items: start;
+  }
+
+  .experience-row:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: var(--rail-x);
+    top: calc(var(--marker-offset) + var(--marker-size) / 2);
+    width: 1px;
+    height: calc(100% + var(--row-gap));
+    transform: translateX(-50%);
+    background: rgba(100,255,218,.22);
+    pointer-events: none;
+  }
+
+  .timeline-meta {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    padding-top: var(--marker-offset);
+    text-align: right;
+  }
+
+  .timeline-meta p {
+    margin: 0;
+    color: #8796ac;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: .72rem;
+    line-height: var(--marker-size);
+  }
+
+  .timeline-marker {
+    position: relative;
+    z-index: 1;
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    place-items: center;
+    width: var(--marker-size);
+    height: var(--marker-size);
+    margin-top: var(--marker-offset);
+    border: 1px solid rgba(100,255,218,.55);
+    border-radius: 50%;
+    background: #06101c;
+  }
+
+  .timeline-marker::after {
+    content: "";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(100,255,218,.65);
+  }
+
+  .experience-card { grid-column: 3; grid-row: 1; min-width: 0; overflow-wrap: anywhere; position: relative; overflow: hidden; padding: 1.55rem 1.65rem; border: 1px solid rgba(114,183,255,.10); border-radius: 10px; background: linear-gradient(135deg, rgba(10,24,47,.48), rgba(7,16,29,.28)); transition: transform .25s ease, border-color .25s ease, background .25s ease; }
   .experience-card::before { content: ""; position: absolute; left: 0; top: 0; width: 2px; height: 100%; background: linear-gradient(to bottom, rgba(100,255,218,.65), rgba(114,183,255,.08)); opacity: .5; }
   .experience-card:hover { transform: translateY(-3px); border-color: rgba(114,183,255,.19); background: linear-gradient(135deg, rgba(10,24,47,.60), rgba(7,16,29,.34)); }
   .experience-card-header { display: flex; justify-content: space-between; gap: 1.5rem; align-items: flex-start; }
@@ -128,6 +194,21 @@ const experiences = [
   .experience-highlights li::before { content: "›"; position: absolute; left: 0; top: 0; color: var(--accent); font-family: monospace; }
   .experience-tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.35rem; }
   .experience-tags span { padding: .38rem .55rem; border: 1px solid rgba(114,183,255,.09); border-radius: 999px; background: rgba(114,183,255,.025); color: #6f8199; font-family: "SFMono-Regular", Consolas, monospace; font-size: .6rem; }
-  @media (max-width: 700px) { .experience { min-height: auto; padding-top: 7rem; padding-bottom: 6rem; } .timeline { gap: 1.2rem; } .timeline::before { left: 8px; } .experience-row { grid-template-columns: 1fr; gap: .55rem; padding-left: 1.5rem; } .timeline-meta { min-height: 1.2rem; padding: 0; text-align: left; } .timeline-number { left: -1.5rem; right: auto; top: .15rem; transform: translateX(-1px); } .timeline-meta p { margin: 0; } .experience-card { padding: 1.35rem 1.25rem; } }
+  @media (max-width: 700px) {
+    .experience { min-height: auto; padding-top: 7rem; padding-bottom: 6rem; }
+    .timeline {
+      --marker-offset: 0px;
+      --column-gap: .85rem;
+      --row-gap: 1.5rem;
+      --rail-x: calc(var(--marker-size) / 2);
+    }
+    .experience-row {
+      grid-template-columns: var(--marker-size) minmax(0, 1fr);
+      row-gap: .75rem;
+    }
+    .timeline-meta { grid-column: 2; text-align: left; }
+    .timeline-marker { grid-column: 1; }
+    .experience-card { grid-column: 2; grid-row: 2; padding: 1.35rem 1.25rem; }
+  }
   @media (max-width: 480px) { .experience-card-header { display: block; } .experience-code { display: inline-block; margin-top: .85rem; } }
 </style>

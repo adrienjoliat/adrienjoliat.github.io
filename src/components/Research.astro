@@ -1,15 +1,14 @@
 ---
-const ongoingResearch = [
+const publications = [
   {
     index: '01',
     type: 'MSc Thesis · ETH Zürich',
     title: 'Enhancing monthly gravity-field solutions with generative deep learning',
     subtitle: 'Space Geodesy Lab',
     description:
-      'Developing an end-to-end deep-learning pipeline to enhance low-degree satellite laser-ranging gravity solutions toward GRACE-like monthly fields. The work combines scientific preprocessing, custom sequence representations, Transformer/GRU architectures, autoregressive modelling, validation-based checkpointing, and multi-domain evaluation.',
-    outcome: 'Ongoing publication',
+      'Developed an end-to-end deep-learning pipeline to enhance low-degree satellite laser-ranging gravity solutions toward GRACE-like monthly fields. The work combined scientific preprocessing, custom sequence representations, Transformer/GRU architectures, autoregressive modelling, validation-based checkpointing, and multi-domain evaluation.',
+    outcome: 'Published · ETH Zürich',
     tags: ['Transformers', 'GRU', 'Generative Models', 'Scientific ML', 'Space Geodesy'],
-    availability: 'Ongoing — PDF not yet available',
   },
   {
     index: '02',
@@ -18,9 +17,8 @@ const ongoingResearch = [
     subtitle: 'European Space Agency · ESTEC',
     description:
       'Research on intelligent onboard screening for the Copernicus CHIME mission. Built the CHIME-MDset proxy dataset, developed hyperspectral feature-selection workflows and compact linear-SVM models, and evaluated the approach in mission-like conditions.',
-    outcome: 'Accepted at IEEE IGARSS 2026 · Washington, D.C.',
+    outcome: 'Published · IEEE IGARSS 2026 · Washington, D.C.',
     tags: ['Hyperspectral EO', 'SVM', 'Feature Selection', 'Onboard AI', 'Remote Sensing'],
-    availability: 'Accepted — paper not yet available',
   },
 ];
 
@@ -65,12 +63,12 @@ const researchProjects = [
 
   <div class="research-block">
     <div class="research-subheading">
-      <span>Publications & Ongoing Work</span>
+      <span>Publications</span>
     </div>
 
-    <div class="research-grid research-grid--ongoing">
-      {ongoingResearch.map((project) => (
-        <article class="research-card research-card--ongoing">
+    <div class="research-grid">
+      {publications.map((project) => (
+        <article class="research-card">
           <div class="research-topline">
             <span>{project.index}</span>
             <p>{project.type}</p>
@@ -84,10 +82,6 @@ const researchProjects = [
             <div class="research-outcome">
               <i aria-hidden="true"></i>
               <span>{project.outcome}</span>
-            </div>
-
-            <div class="research-actions">
-              <span class="research-link research-link--disabled">{project.availability}</span>
             </div>
 
             <div class="research-tags">
@@ -104,9 +98,9 @@ const researchProjects = [
       <span>Selected Research Projects</span>
     </div>
 
-    <div class="research-grid research-grid--projects">
+    <div class="research-grid">
       {researchProjects.map((project) => (
-        <article class="research-card research-card--project">
+        <article class="research-card">
           <div class="research-topline">
             <span>{project.index}</span>
             <p>{project.type}</p>
@@ -227,18 +221,13 @@ const researchProjects = [
 
   .research-grid {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
   }
 
-  .research-grid--ongoing {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .research-grid--projects {
-    grid-template-columns: 1fr;
-  }
-
   .research-card {
+    min-width: 0;
+    overflow-wrap: anywhere;
     position: relative;
     overflow: hidden;
     padding: 1.45rem;
@@ -289,6 +278,7 @@ const researchProjects = [
   }
 
   .research-copy {
+    min-width: 0;
     padding-top: 1.2rem;
   }
 
@@ -309,6 +299,7 @@ const researchProjects = [
   }
 
   .research-description {
+    max-width: 90ch;
     margin: 1rem 0 0;
     color: #8795aa;
     font-size: .85rem;
@@ -415,10 +406,6 @@ const researchProjects = [
   }
 
   @media (max-width: 900px) {
-    .research-grid--ongoing {
-      grid-template-columns: 1fr;
-    }
-
     .project-layout {
       grid-template-columns: 1fr;
     }

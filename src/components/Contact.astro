@@ -141,8 +141,10 @@ const links = [
   }
 
   .contact-link {
+    min-width: 0;
+    overflow-wrap: anywhere;
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 34px minmax(0, 1fr) 17px;
     gap: .9rem;
     align-items: center;
     padding: 1rem 1.1rem;
@@ -191,6 +193,7 @@ const links = [
 
   .contact-arrow {
     width: 17px;
+    height: 17px;
     color: #52677f;
   }
 
