@@ -2,12 +2,17 @@
 const publications = [
   {
     index: '01',
-    type: 'MSc Thesis · ETH Zürich',
-    title: 'Enhancing monthly gravity-field solutions with generative deep learning',
+    type: 'MSc Thesis · EPFL / ETH Zürich',
+    title: 'Enhancing the spatial resolution of monthly gravity solutions derived from satellite laser ranging',
     subtitle: 'Space Geodesy Lab',
     description:
       'Developed an end-to-end deep-learning pipeline to enhance low-degree satellite laser-ranging gravity solutions toward GRACE-like monthly fields. The work combined scientific preprocessing, custom sequence representations, Transformer/GRU architectures, autoregressive modelling, validation-based checkpointing, and multi-domain evaluation.',
-    outcome: 'Published · ETH Zürich',
+    outcome: 'Accepted and presented · GSTM 2026',
+    preview: '/research/master-thesis-preview.webp',
+    previewAlt: 'Master’s thesis poster on enhancing monthly gravity solutions from satellite laser ranging, presented at GSTM 2026',
+    previewWidth: 991,
+    previewHeight: 1400,
+    poster: '/research/master-thesis-gstm-2026-poster.pdf',
     tags: ['Transformers', 'GRU', 'Generative Models', 'Scientific ML', 'Space Geodesy'],
   },
   {
@@ -18,6 +23,11 @@ const publications = [
     description:
       'Research on intelligent onboard screening for the Copernicus CHIME mission. Built the CHIME-MDset proxy dataset, developed hyperspectral feature-selection workflows and compact linear-SVM models, and evaluated the approach in mission-like conditions.',
     outcome: 'Published · IEEE IGARSS 2026 · Washington, D.C.',
+    preview: '/research/chime-preview.webp',
+    previewAlt: 'CHIME-like satellite image beside the onboard classification mask from the paper’s CHEES simulation',
+    previewWidth: 770,
+    previewHeight: 425,
+    poster: null,
     tags: ['Hyperspectral EO', 'SVM', 'Feature Selection', 'Onboard AI', 'Remote Sensing'],
   },
 ];
@@ -74,19 +84,61 @@ const researchProjects = [
             <p>{project.type}</p>
           </div>
 
-          <div class="research-copy">
-            <p class="research-subtitle">{project.subtitle}</p>
-            <h4>{project.title}</h4>
-            <p class="research-description">{project.description}</p>
+          <div class="project-layout">
+            <div class="research-copy">
+              <p class="research-subtitle">{project.subtitle}</p>
+              <h4>{project.title}</h4>
+              <p class="research-description">{project.description}</p>
 
-            <div class="research-outcome">
-              <i aria-hidden="true"></i>
-              <span>{project.outcome}</span>
+              <div class="research-outcome">
+                <i aria-hidden="true"></i>
+                <span>{project.outcome}</span>
+              </div>
+
+              {project.poster && (
+                <div class="research-actions">
+                  <a
+                    class="research-link"
+                    href={project.poster}
+                    download="Adrien-Joliat-GSTM-2026-Poster.pdf"
+                    aria-label="Download the master's thesis poster presented at GSTM 2026 (PDF)"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true" width="15" height="15">
+                      <path
+                        d="M12 3v12m0 0 4-4m-4 4-4-4M5 19h14"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <span>Download poster</span>
+                    <span class="research-link-type">PDF</span>
+                  </a>
+                </div>
+              )}
+
+              <div class="research-tags">
+                {project.tags.map((tag) => <span>{tag}</span>)}
+              </div>
             </div>
 
-            <div class="research-tags">
-              {project.tags.map((tag) => <span>{tag}</span>)}
-            </div>
+            {project.poster ? (
+              <a
+                class="research-preview publication-preview"
+                href={project.poster}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View the master's thesis poster presented at GSTM 2026 (opens in a new tab)"
+              >
+                <img src={project.preview} alt={project.previewAlt} width={project.previewWidth} height={project.previewHeight} loading="lazy" />
+              </a>
+            ) : (
+              <div class="research-preview publication-preview">
+                <img src={project.preview} alt={project.previewAlt} width={project.previewWidth} height={project.previewHeight} loading="lazy" />
+              </div>
+            )}
           </div>
         </article>
       ))}
@@ -433,5 +485,22 @@ const researchProjects = [
     .research-card {
       padding: 1.3rem 1.2rem;
     }
+  }
+  /* Preserve complete poster pages and figure labels at every breakpoint. */
+  .publication-preview {
+    display: block;
+    height: auto;
+    aspect-ratio: auto;
+    margin-top: 1.2rem;
+    background: #fff;
+  }
+
+  .publication-preview img {
+    height: auto;
+    object-fit: contain;
+  }
+
+  a.publication-preview:hover {
+    border-color: rgba(100,255,218,.55);
   }
 </style>
