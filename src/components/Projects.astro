@@ -44,6 +44,28 @@ const projects = [
     status: 'Deployed',
     reverse: true,
   },
+  {
+    index: '03',
+    category: 'Swarm Robotics · Combinatorial Optimization',
+    title: 'Swarm Robotics & Route Optimization',
+    subtitle: 'Full implementation · Ant colony optimization in Webots',
+    description:
+      'A swarm of simulated e-puck robots learns patrol routes through ant colony optimization. I implemented the complete system: C robot and supervisor controllers, sensor-based obstacle avoidance, stuck recovery, adaptive distance and pheromone updates, plus Python visualizations and MATLAB parameter studies.',
+    tags: [
+      'Webots',
+      'C',
+      'Swarm Robotics',
+      'Ant Colony Optimization',
+      'Python',
+      'MATLAB',
+    ],
+    preview: '/projects/swarm-robotics-preview.webp',
+    previewAlt: 'Pheromone-matrix heatmap from the swarm-robotics project, showing route preferences between five patrol points after 55 tours',
+    github: null,
+    live: null,
+    status: 'Completed',
+    reverse: false,
+  },
 ];
 ---
 
@@ -60,7 +82,7 @@ const projects = [
   <div class="projects-intro">
     <p>
       Selected systems and applications built beyond my core research work,
-      spanning agentic AI, software engineering and applied machine learning.
+      spanning agentic AI, robotics, optimization, software engineering and applied machine learning.
     </p>
   </div>
 
@@ -113,6 +135,7 @@ const projects = [
             {project.description}
           </p>
 
+          {(project.live || project.github) && (
           <div class="project-actions">
             {project.live && (
               <a
@@ -142,6 +165,7 @@ const projects = [
               </a>
             )}
 
+            {project.github && (
             <a
               class="project-link"
               href={project.github}
@@ -163,7 +187,9 @@ const projects = [
 
               <span>GitHub</span>
             </a>
+            )}
           </div>
+          )}
 
           <div class="project-tags" aria-label={`${project.title} technologies`}>
             {project.tags.map((tag) => <span>{tag}</span>)}
