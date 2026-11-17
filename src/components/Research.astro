@@ -12,7 +12,6 @@ const publications = [
     previewAlt: 'Master’s thesis poster on enhancing monthly gravity solutions from satellite laser ranging, presented at GSTM 2026',
     previewWidth: 991,
     previewHeight: 1400,
-    poster: '/research/master-thesis-gstm-2026-poster.pdf',
     tags: ['Transformers', 'GRU', 'Generative Models', 'Scientific ML', 'Space Geodesy'],
   },
   {
@@ -27,7 +26,6 @@ const publications = [
     previewAlt: 'CHIME-like satellite image beside the onboard classification mask from the paper’s CHEES simulation',
     previewWidth: 770,
     previewHeight: 425,
-    poster: null,
     tags: ['Hyperspectral EO', 'SVM', 'Feature Selection', 'Onboard AI', 'Remote Sensing'],
   },
 ];
@@ -44,8 +42,6 @@ const researchProjects = [
     tags: ['Hyperbolic Geometry', 'Semantic Segmentation', 'PyTorch', 'Earth Observation'],
     preview: '/research/hyperbolic-preview.png',
     previewAlt: 'Preview of hyperbolic remote sensing research',
-    pdf: '/research/hyperbolic-report.pdf',
-    pdfLabel: 'Research Report',
   },
   {
     index: '04',
@@ -95,50 +91,14 @@ const researchProjects = [
                 <span>{project.outcome}</span>
               </div>
 
-              {project.poster && (
-                <div class="research-actions">
-                  <a
-                    class="research-link"
-                    href={project.poster}
-                    download="Adrien-Joliat-GSTM-2026-Poster.pdf"
-                    aria-label="Download the master's thesis poster presented at GSTM 2026 (PDF)"
-                  >
-                    <svg viewBox="0 0 24 24" aria-hidden="true" width="15" height="15">
-                      <path
-                        d="M12 3v12m0 0 4-4m-4 4-4-4M5 19h14"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.7"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                    <span>Download poster</span>
-                    <span class="research-link-type">PDF</span>
-                  </a>
-                </div>
-              )}
-
               <div class="research-tags">
                 {project.tags.map((tag) => <span>{tag}</span>)}
               </div>
             </div>
 
-            {project.poster ? (
-              <a
-                class="research-preview publication-preview"
-                href={project.poster}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View the master's thesis poster presented at GSTM 2026 (opens in a new tab)"
-              >
-                <img src={project.preview} alt={project.previewAlt} width={project.previewWidth} height={project.previewHeight} loading="lazy" />
-              </a>
-            ) : (
-              <div class="research-preview publication-preview">
-                <img src={project.preview} alt={project.previewAlt} width={project.previewWidth} height={project.previewHeight} loading="lazy" />
-              </div>
-            )}
+            <div class="research-preview publication-preview">
+              <img src={project.preview} alt={project.previewAlt} width={project.previewWidth} height={project.previewHeight} loading="lazy" />
+            </div>
           </div>
         </article>
       ))}
@@ -169,29 +129,8 @@ const researchProjects = [
                 <span>{project.outcome}</span>
               </div>
 
-              <div class="research-actions">
-                {project.pdf ? (
-                  <a
-                    class="research-link"
-                    href={project.pdf}
-                    download
-                    aria-label={`Download ${project.pdfLabel}: ${project.title}`}
-                  >
-                    <svg viewBox="0 0 24 24" aria-hidden="true" width="15" height="15">
-                      <path
-                        d="M12 3v12m0 0 4-4m-4 4-4-4M5 19h14"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.7"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-
-                    <span>{project.pdfLabel}</span>
-                    <span class="research-link-type">PDF</span>
-                  </a>
-                ) : project.publicationUrl ? (
+              {project.publicationUrl && (
+                <div class="research-actions">
                   <a
                     class="research-link"
                     href={project.publicationUrl}
@@ -213,12 +152,8 @@ const researchProjects = [
                     <span>{project.publicationLabel}</span>
                     <span class="research-link-type">LINK</span>
                   </a>
-                ) : (
-                  <span class="research-link research-link--disabled">
-                    Report unavailable
-                  </span>
-                )}
-              </div>
+                </div>
+              )}
 
               <div class="research-tags">
                 {project.tags.map((tag) => <span>{tag}</span>)}
@@ -402,20 +337,6 @@ const researchProjects = [
     transform: translateY(-2px);
   }
 
-  .research-link--disabled {
-    cursor: default;
-    color:var(--text-dim);
-    border-color: rgba(148,163,184,.12);
-    background: rgba(148,163,184,.04);
-  }
-
-  .research-link--disabled:hover {
-    color:var(--text-dim);
-    border-color: rgba(148,163,184,.12);
-    background: rgba(148,163,184,.04);
-    transform: none;
-  }
-
   .research-tags {
     display: flex;
     flex-wrap: wrap;
@@ -500,7 +421,4 @@ const researchProjects = [
     object-fit: contain;
   }
 
-  a.publication-preview:hover {
-    border-color: rgba(100,255,218,.55);
-  }
 </style>
